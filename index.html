@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA Roadways LLC — Oversize/Overweight Permit Filing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#1C1C1E;
+    --amber:#F2A900;
+    --rust:#C6432D;
+    --paper:#EDEAE0;
+    --steel:#4A5560;
+    --steel-light:#7C8894;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--asphalt);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:3px solid var(--amber);outline-offset:2px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 6vw;
+    background:var(--asphalt);
+    color:var(--paper);
+    position:sticky;top:0;z-index:50;
+  }
+  .logo{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    letter-spacing:0.04em;
+  }
+  .logo span{color:var(--amber);}
+  .nav-links{display:flex;gap:32px;font-size:0.85rem;letter-spacing:0.03em;text-transform:uppercase;}
+  .nav-links a{opacity:0.85;transition:opacity 0.2s;}
+  .nav-links a:hover{opacity:1;color:var(--amber);}
+  .nav-cta{
+    background:var(--amber);color:var(--asphalt);
+    padding:10px 20px;font-weight:600;font-size:0.85rem;
+    text-transform:uppercase;letter-spacing:0.03em;
+    border-radius:2px;
+  }
+  @media(max-width:800px){.nav-links{display:none;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:80px 6vw 60px;
+    background:
+      linear-gradient(180deg, var(--asphalt) 0%, var(--asphalt) 78%, var(--paper) 78%);
+    color:var(--paper);
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;
+  }
+  @media(max-width:900px){.hero-inner{grid-template-columns:1fr;}}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--amber);margin-bottom:20px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--amber);}
+  h1.headline{
+    font-size:clamp(2.4rem,5vw,3.6rem);
+    line-height:1.05;
+    font-weight:700;
+    margin-bottom:22px;
+  }
+  h1.headline em{
+    font-style:normal;color:var(--amber);
+  }
+  .hero p.sub{
+    font-size:1.05rem;color:#C9C6BC;max-width:480px;margin-bottom:32px;
+  }
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--amber);color:var(--asphalt);
+    padding:15px 28px;font-weight:600;font-size:0.9rem;
+    text-transform:uppercase;letter-spacing:0.03em;
+    border-radius:2px;display:inline-block;
+    transition:transform 0.15s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{
+    border:1px solid #55555a;color:var(--paper);
+    padding:15px 28px;font-weight:600;font-size:0.9rem;
+    text-transform:uppercase;letter-spacing:0.03em;
+    border-radius:2px;display:inline-block;
+  }
+
+  /* ---- signature: dimension diagram ---- */
+  .diagram-wrap{position:relative;display:flex;justify-content:center;align-items:center;min-height:320px;}
+  .load-svg{width:100%;max-width:420px;}
+  .dim-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;fill:var(--amber);letter-spacing:0.05em;
+  }
+  .dim-line{stroke:var(--amber);stroke-width:1.2;opacity:0.7;}
+  .load-body{fill:#2B2B2E;stroke:var(--steel-light);stroke-width:1.5;}
+  .load-flag{fill:var(--rust);}
+
+  /* ---------- STRIP ---------- */
+  .strip{
+    background:var(--asphalt);
+    color:var(--paper);
+    display:flex;flex-wrap:wrap;gap:0;
+    border-top:1px solid #35353a;
+  }
+  .strip-item{
+    flex:1;min-width:150px;
+    padding:22px 6vw;
+    text-align:center;
+    border-right:1px solid #35353a;
+  }
+  .strip-item:last-child{border-right:none;}
+  .strip-num{font-family:'IBM Plex Mono',monospace;color:var(--amber);font-size:1.5rem;font-weight:600;}
+  .strip-label{font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;color:#B7B4AA;margin-top:4px;}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:90px 6vw;max-width:1180px;margin:0 auto;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--rust);margin-bottom:14px;display:block;
+  }
+  h2{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:600;line-height:1.15;}
+  .section-head p{color:var(--steel);margin-top:16px;font-size:1.02rem;max-width:520px;}
+
+  /* ---------- STATES (mile markers) ---------- */
+  .markers{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;}
+  .marker{
+    background:var(--asphalt);color:var(--paper);
+    padding:24px 20px;border-radius:3px;
+    position:relative;
+    border-left:4px solid var(--amber);
+  }
+  .marker-code{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;color:var(--amber);letter-spacing:0.08em;
+  }
+  .marker-name{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:600;margin-top:6px;text-transform:uppercase;}
+  .marker-note{font-size:0.82rem;color:#B7B4AA;margin-top:10px;line-height:1.4;}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{display:flex;flex-direction:column;}
+  .step{
+    display:grid;grid-template-columns:90px 1fr;gap:28px;
+    padding:32px 0;border-top:1px solid #d8d4c6;
+  }
+  .step:last-child{border-bottom:1px solid #d8d4c6;}
+  .step-num{
+    font-family:'IBM Plex Mono',monospace;color:var(--rust);
+    font-size:2rem;font-weight:600;
+  }
+  .step h3{font-size:1.15rem;font-weight:600;text-transform:none;letter-spacing:0;margin-bottom:8px;}
+  .step p{color:var(--steel);font-size:0.98rem;max-width:560px;}
+
+  /* ---------- PRICING ---------- */
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+  .price-card{
+    background:#fff;border:1px solid #d8d4c6;border-radius:4px;
+    padding:32px 26px;
+  }
+  .price-card.highlight{border-color:var(--amber);border-width:2px;position:relative;}
+  .price-card.highlight::before{
+    content:"MOST COMMON";
+    position:absolute;top:-12px;left:24px;
+    background:var(--amber);color:var(--asphalt);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.65rem;letter-spacing:0.08em;
+    padding:4px 10px;border-radius:2px;
+  }
+  .price-tier{font-family:'Oswald',sans-serif;font-size:1rem;text-transform:uppercase;letter-spacing:0.03em;color:var(--steel);}
+  .price-amount{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;font-weight:600;margin:14px 0 6px;}
+  .price-amount span{font-size:1rem;color:var(--steel);}
+  .price-desc{font-size:0.9rem;color:var(--steel);line-height:1.5;}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{
+    background:var(--rust);color:var(--paper);
+    padding:70px 6vw;text-align:center;
+  }
+  .cta-band h2{color:var(--paper);margin-bottom:18px;}
+  .cta-band p{color:#F3D8CF;max-width:520px;margin:0 auto 32px;font-size:1.02rem;}
+  .cta-band .btn-primary{background:var(--asphalt);color:var(--amber);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--asphalt);color:#8C8983;
+    padding:40px 6vw;font-size:0.85rem;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  }
+  footer .logo{color:var(--paper);}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .btn-primary{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">SA <span>ROADWAYS</span></div>
+  <div class="nav-links">
+    <a href="#states">Coverage</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <a href="#start" class="nav-cta">File a Permit</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">OS/OW Permit Filing · Six-State Coverage</div>
+      <h1 class="headline">Your load doesn't fit.<br><em>Your paperwork will.</em></h1>
+      <p class="sub">SA Roadways files your oversize and overweight permits directly with the state — so you're cleared to move instead of stuck in a portal.</p>
+      <div class="hero-ctas">
+        <a href="#start" class="btn-primary">Submit Your Load</a>
+        <a href="#how" class="btn-ghost">See How It Works</a>
+      </div>
+    </div>
+
+    <div class="diagram-wrap">
+      <svg class="load-svg" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect class="load-body" x="70" y="120" width="230" height="90" rx="4"/>
+        <rect class="load-body" x="55" y="150" width="20" height="45" rx="2"/>
+        <circle cx="100" cy="212" r="14" fill="#1C1C1E" stroke="#7C8894" stroke-width="2"/>
+        <circle cx="150" cy="212" r="14" fill="#1C1C1E" stroke="#7C8894" stroke-width="2"/>
+        <circle cx="240" cy="212" r="14" fill="#1C1C1E" stroke="#7C8894" stroke-width="2"/>
+        <circle cx="280" cy="212" r="14" fill="#1C1C1E" stroke="#7C8894" stroke-width="2"/>
+        <path class="load-flag" d="M300 120 L300 95 L330 105 Z"/>
+        <!-- width dimension -->
+        <line class="dim-line" x1="55" y1="238" x2="300" y2="238"/>
+        <line class="dim-line" x1="55" y1="232" x2="55" y2="244"/>
+        <line class="dim-line" x1="300" y1="232" x2="300" y2="244"/>
+        <text class="dim-label" x="150" y="258">14'-0" WIDE</text>
+        <!-- height dimension -->
+        <line class="dim-line" x1="335" y1="95" x2="335" y2="210"/>
+        <line class="dim-line" x1="329" y1="95" x2="341" y2="95"/>
+        <line class="dim-line" x1="329" y1="210" x2="341" y2="210"/>
+        <text class="dim-label" x="345" y="155">15'-6" HIGH</text>
+        <!-- length dimension -->
+        <line class="dim-line" x1="55" y1="70" x2="300" y2="70"/>
+        <line class="dim-line" x1="55" y1="64" x2="55" y2="76"/>
+        <line class="dim-line" x1="300" y1="64" x2="300" y2="76"/>
+        <text class="dim-label" x="130" y="55">98'-0" LENGTH</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-item"><div class="strip-num">6</div><div class="strip-label">States Filed</div></div>
+  <div class="strip-item"><div class="strip-num mono">24HR</div><div class="strip-label">Typical Turnaround</div></div>
+  <div class="strip-item"><div class="strip-num mono">$0</div><div class="strip-label">Markup on State Fees</div></div>
+</div>
+
+<section id="states">
+  <div class="section-head">
+    <span class="section-eyebrow">Coverage</span>
+    <h2>Filed in the states that move the most heavy freight.</h2>
+    <p>Each state runs its own permitting system. We already have accounts open and know the fields — so you don't have to learn six different portals.</p>
+  </div>
+  <div class="markers">
+    <div class="marker"><div class="marker-code">MI-04</div><div class="marker-name">Arizona</div><div class="marker-note">Class A &amp; Class C envelope permits via ePRO</div></div>
+    <div class="marker"><div class="marker-code">MI-19</div><div class="marker-name">New Mexico</div><div class="marker-note">Single &amp; multi-trip filing via NM-OPS</div></div>
+    <div class="marker"><div class="marker-code">MI-31</div><div class="marker-name">Texas</div><div class="marker-note">TxPROS filings with county fee tracking</div></div>
+    <div class="marker"><div class="marker-code">MI-42</div><div class="marker-name">Utah</div><div class="marker-note">Bridge-clearance coordination included</div></div>
+    <div class="marker"><div class="marker-code">MI-58</div><div class="marker-name">Oregon</div><div class="marker-note">ORION filings, county admin fees quoted upfront</div></div>
+    <div class="marker"><div class="marker-code">MI-67</div><div class="marker-name">California</div><div class="marker-note">CalRoute clearance before every submission</div></div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="section-head">
+    <span class="section-eyebrow">Process</span>
+    <h2>Four steps. No portal logins required on your end.</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num mono">01</div>
+      <div><h3>Submit your load</h3><p>Weight, dimensions, route, and insurance — one short form, from your phone or the truck.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num mono">02</div>
+      <div><h3>We check the tier</h3><p>Standard, oversize/overweight combined, or superload — your load gets sorted automatically, and heavier loads get a specialist's eye before pricing.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num mono">03</div>
+      <div><h3>We file with the state</h3><p>Directly in the state's own permit system — same portals, same fields, done by someone who files them daily.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num mono">04</div>
+      <div><h3>Permit lands in your inbox</h3><p>Approved and ready to carry — no chasing a status page.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="section-head">
+    <span class="section-eyebrow">Pricing</span>
+    <h2>State fees, passed through. Our fee, always flat.</h2>
+    <p>You never pay a markup on what the state charges — only our filing fee on top, and you'll always see both separately.</p>
+  </div>
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-tier">Standard</div>
+      <div class="price-amount mono">$20<span>+ state fee</span></div>
+      <div class="price-desc">Oversize or overweight, single trip, within standard dimension charts.</div>
+    </div>
+    <div class="price-card highlight">
+      <div class="price-tier">OS/OW Combined</div>
+      <div class="price-amount mono">$30<span>+ state fee</span></div>
+      <div class="price-desc">Both oversize and overweight on the same load — our most common filing.</div>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Superload</div>
+      <div class="price-amount mono">Custom<span>quoted</span></div>
+      <div class="price-desc">Route survey, escort coordination, or engineering review — priced after a specialist reviews your exact load.</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band" id="start">
+  <h2>Get your load moving.</h2>
+  <p>Submit your details now — most standard permits are filed within one business day.</p>
+  <a href="#" class="btn-primary">Start Your Permit Request</a>
+</div>
+
+<footer>
+  <div class="logo">SA ROADWAYS LLC</div>
+  <div>Oversize/Overweight Permit Filing · AZ · NM · TX · UT · OR · CA</div>
+</footer>
+
+</body>
+</html>
